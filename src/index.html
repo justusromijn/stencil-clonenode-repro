@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Stencil Starter App</title>
+  <meta name="Description" content="Welcome to the Stencil App Starter. You can use this starter to build entire apps all with web components using Stencil!">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+  <meta name="theme-color" content="#16161d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="x-ua-compatible" content="IE=Edge">
+
+  <!-- angular from cdn -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.5/angular.min.js"></script>
+  
+  <script type="module" src="/build/app.esm.js"></script>
+  <script nomodule src="/build/app.js"></script>
+  <link href="/build/app.css" rel="stylesheet">
+
+  <link rel="apple-touch-icon" href="/assets/icon/icon.png">
+  <link rel="icon" type="image/x-icon" href="/assets/icon/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
+
+  <script>
+    angular.module('demo', []).controller('homeCtrl', homeCtrl);
+
+homeCtrl.$inject = ['$timeout'];
+
+function homeCtrl($timeout) {
+  var vm = this;
+  vm.title = 'Default Title';
+  vm.showDynamic = true;
+
+  vm.changeTitle = function() {
+    vm.title = 'Updated title ' + Date.now();
+  };
+
+  vm.init = function() {
+    $timeout(function() {
+      vm.status = true;
+    }, 500);
+  };
+
+  vm.init();
+}
+</script>
+  </script>
+</head>
+<body>  
+  <section class="rfs2-container" ng-app="demo">
+    <div ng-controller="homeCtrl as ctrl">
+      showDynamic: {{ctrl.showDynamic}}
+      <hr />
+      <h2>Double render issue</h2>
+      <button ng-click="ctrl.showDynamic=!ctrl.showDynamic">
+        Toggle the components
+      </button>
+      <div ng-if="ctrl.showDynamic">
+        <app-root><span>Test</span></app-root>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
